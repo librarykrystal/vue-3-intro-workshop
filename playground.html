@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground — Complete Intro to Vue 3</title>
+  </head>
+  <body>
+    <h1>Hello!</h1>
+
+    <!-- Note: {{ double curlies }} print out but also eval js info -->
+
+    <div id="app">
+      <!-- VUE DIRECTIVES (attributes on an HTML elements) (start with v-)
+        to show only if condition is met/true -->
+      <p v-if="message.length % 2 === 0">Even: {{ message.toUpperCase() }}</p>
+      <p v-else>Odd: {{ message }}</p>
+
+      <!-- list using v-for which works as a for loop -->
+      <ul>
+        <li v-for="number in listOfNumbers">{{ number }}</li>
+      </ul>
+
+      <!-- to show using js inside {{}}, the list again, but Math.random'd -->
+      <ul>
+        <li v-for="number in listOfNumbers">{{ number * Math.random() }}</li>
+      </ul>
+
+      <!-- Now, on objects containing their own lists -->
+      <ul v-for="item in fancyListOfNumbers">
+        <li>
+          {{ item.name }}
+          <ul>
+            <li v-for="number in item.list">{{ number }}</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Next line pasted from Vue.js site guide (for CDN) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const { createApp } = Vue 
+      // now will create variable app and create said app
+      // in Vue 2 it looked like:
+      // new Vue()
+      const app = createApp({
+        // now making data function which returns an object...
+        // doing this as a function w/ return allows Vue's reactivity to track it
+        data() {
+          return {
+            message: 'Hey, a message!!',
+            listOfNumbers: [1, 2, 3, 4, 5],
+            fancyListOfNumbers: [
+              {name: 'A', list:[1, 2, 3]},
+              {name: 'B', list:[4, 5, 6]},
+              {name: 'C', list:[7, 8, 9]},
+            ]
+          }
+        }
+      })  
+      app.mount('#app')  // uses CSS selector to tell where to mount app
+    </script>
+
+  </body>
+</html>

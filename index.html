@@ -4,7 +4,69 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Ted Lasso</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Ted Lasso Characters!</h1>
+    <br/>
+
+    <div id="app">
+      <p v-if="characterList.length === 0">There are no characters!</p>
+      <!-- v-show is an alternate where things are shown/hidden via CSS, not done here -->
+      <p v-else-if="characterList.length === 1">There's only one character!</p>
+      <div v-else>
+        <h3>Characters!</h3>
+        <ul>
+          <li v-for="char in characterList">{{ char.name }}, {{ char.desc }}</li>
+        </ul>
+
+        <br/>
+
+        <h3>Characters with COMMAS!</h3>
+        <!-- Using only what we know so far, here is a way to 
+        not have a comma after the final name -->
+        <p>
+          <span v-for="(char, index) in characterList">
+            {{ char.name }}{{ index === characterList.length - 1 ? '' : ', ' }}
+          </span>
+        </p>
+
+        <br/>
+
+        <h3>Okay, now BALLERS ONLY!</h3>
+        <p>
+          <span v-for="(char, index) in characterList">
+            <span v-if="char.baller === true">
+              {{ char.name }}{{ index === characterList.length - 1 ? '' : ', ' }}
+            </span>
+          </span>
+        </p>
+
+
+      </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      // more succinct ver of creating app/data:
+      Vue.createApp({
+        data: () => ({
+            characterList: [
+              {name: 'Ted', desc: 'BBQ Genius', baller: false},
+              {name: 'Rebecca', desc: 'Badass Bestie', baller: false},
+              {name: 'Dani', desc: 'Tulip Fan', baller: true},
+              {name: 'Higgins', desc: 'Jazz Legend', baller: false},
+              {name: 'Jamie', desc: 'Bicycle Instructor', baller: true},
+              {name: 'Keeley', desc: 'PR Princess', baller: false},
+              {name: 'Beard', desc: 'Coach', baller: false},
+              {name: 'Sam', desc: 'Wuvvable Winger', baller: true},
+            ]
+        })
+      }).mount('#app')
+      // pay attention to mount being attached to app in this Vue.createApp version
+    </script>
+
+  </body>
 </html>

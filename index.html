@@ -17,8 +17,18 @@
       <div v-else>
         <h3>Characters!</h3>
         <ul>
-          <li v-for="char in characterList">{{ char.name }}, {{ char.desc }}</li>
+          <li v-for="char in characterList">
+            <p>{{ char.name }}, {{ char.desc }}</p>
+            <button @click="favoriteCharacter(char)">♥︎ Favorite</button>
+          </li>
         </ul>
+        <br/>
+
+        <h3>♥︎ Faves</h3>
+        <ul v-if="favoriteList.length > 0">
+          <li v-for="fave in favoriteList">{{ fave.name }}</li>
+        </ul>
+        <p v-else>There are no faves!</p>
 
         <br/>
 
@@ -62,8 +72,14 @@
               {name: 'Keeley', desc: 'PR Princess', baller: false},
               {name: 'Beard', desc: 'Coach', baller: false},
               {name: 'Sam', desc: 'Wuvvable Winger', baller: true},
-            ]
-        })
+            ],
+            favoriteList: []
+        }),
+        methods: {
+          favoriteCharacter(character) {
+            this.favoriteList.push(character)
+          }
+        }
       }).mount('#app')
       // pay attention to mount being attached to app in this Vue.createApp version
     </script>

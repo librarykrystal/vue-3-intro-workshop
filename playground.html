@@ -14,9 +14,11 @@
     <div id="app">
 
       <h1>COUNTER.</h1>
-      <p>Count: {{ count }}</p>
-      <!-- v-on:theEventYouWantToCall -->
+      <!-- prefixing attribute with : is short ver of using v-bind: -->
+      <p :data-increment-by="incrementAmount">Count: {{ count }}</p>
+      <!-- v-on:theEventYouWantToCall such as v-on:click which can be shortened to @click-->
       <!-- do not use () after to call the function.  This points to the function.  -->
+      <!-- can pass arguments to the function in () like incrementCount(10, $event)-->
       <button v-on:click="incrementCount">INCREMENT COUNT.</button>
       <p>Increment Amount: {{ incrementAmount }}</p>
       <div>
@@ -89,13 +91,15 @@
         },
         // methods are like functions from js for your app to call on
         methods: {
-          incrementCount() {
+          incrementCount(newAmount, event) {
             // this. keyword tells V to find count in the context of this app
             // think of it as meaning in "this" app
             // a more explicit version might be like this.$data.count
             // simple incr-by-one version: this.count++
             this.count += this.incrementAmount
           },
+          // could use newAmount arg passed in up at button
+          
           // changeIncrementAmount(event) {
           //   console.log('event:', event.target.value)
           //   this.incrementAmount = event.target.value

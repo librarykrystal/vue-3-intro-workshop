@@ -11,6 +11,13 @@
     <br/>
 
     <div id="app">
+      <h3>ADD a Character!</h3>
+      <pre>{{ newCharacter }}</pre>
+      <label for="character-name">Name</label>
+      <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
+
+      <br/>
+
       <p v-if="characterList.length === 0">There are no characters!</p>
       <!-- v-show is an alternate where things are shown/hidden via CSS, not done here -->
       <p v-else-if="characterList.length === 1">There's only one character!</p>
@@ -73,9 +80,16 @@
               {name: 'Beard', desc: 'Coach', baller: false},
               {name: 'Sam', desc: 'Wuvvable Winger', baller: true},
             ],
-            favoriteList: []
+            favoriteList: [],
+            newCharacter: {
+              name: ''
+            }
         }),
         methods: {
+          addNewCharacter() {
+            this.characterList.push(this.newCharacter)
+            this.newCharacter = { name: '' }
+          },
           favoriteCharacter(character) {
             this.favoriteList.push(character)
           }

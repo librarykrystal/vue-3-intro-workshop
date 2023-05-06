@@ -12,6 +12,29 @@
     <!-- Note: {{ double curlies }} print out but also eval js info -->
 
     <div id="app">
+
+      <h1>COUNTER.</h1>
+      <p>Count: {{ count }}</p>
+      <!-- v-on:theEventYouWantToCall -->
+      <!-- do not use () after to call the function.  This points to the function.  -->
+      <button v-on:click="incrementCount">INCREMENT COUNT.</button>
+      <p>Increment Amount: {{ incrementAmount }}</p>
+      <div>
+        <label for="incrementAmount">Increment by:</label>
+        <!-- v-bind will bind the value to a dynamic property -->
+        <!-- v-on:input will run the named function on this action -->
+        <input
+          type="number"
+          v-model="incrementAmount"
+        />
+      </div>
+
+      <!-- v-bind:value="incrementAmount"
+          v-on:input="changeIncrementAmount" -->
+      <!-- these were in the input, but using v-model takes care of these things
+        AND makes sure the input stays number data type -->
+      <hr/>
+
       <!-- VUE DIRECTIVES (attributes on an HTML elements) (start with v-)
         to show only if condition is met/true -->
       <p v-if="message.length % 2 === 0">Even: {{ message.toUpperCase() }}</p>
@@ -36,6 +59,8 @@
           </ul>
         </li>
       </ul>
+      <hr/>
+
     </div>
 
     <!-- Next line pasted from Vue.js site guide (for CDN) -->
@@ -51,14 +76,30 @@
         // doing this as a function w/ return allows Vue's reactivity to track it
         data() {
           return {
+            count: 10,
+            incrementAmount: 8,
             message: 'Hey, a message!!',
             listOfNumbers: [1, 2, 3, 4, 5],
             fancyListOfNumbers: [
               {name: 'A', list:[1, 2, 3]},
               {name: 'B', list:[4, 5, 6]},
               {name: 'C', list:[7, 8, 9]},
-            ]
+            ],
           }
+        },
+        // methods are like functions from js for your app to call on
+        methods: {
+          incrementCount() {
+            // this. keyword tells V to find count in the context of this app
+            // think of it as meaning in "this" app
+            // a more explicit version might be like this.$data.count
+            // simple incr-by-one version: this.count++
+            this.count += this.incrementAmount
+          },
+          // changeIncrementAmount(event) {
+          //   console.log('event:', event.target.value)
+          //   this.incrementAmount = event.target.value
+          // }   DON"T NEED THIS ONCE WE USE v-model ON INPUT
         }
       })  
       app.mount('#app')  // uses CSS selector to tell where to mount app

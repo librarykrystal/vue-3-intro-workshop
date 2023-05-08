@@ -123,6 +123,8 @@
         watch: {
           count(newValue) {
             console.log('newValue:', newValue)
+            // this is a simple way, but it is better to use computed properties (above)
+            // to avoid unwanted re-triggering of renders later
             if (newValue > 20) {
               this.counterTitle += ' over 20'
             }

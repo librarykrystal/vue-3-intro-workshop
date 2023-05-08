@@ -13,7 +13,7 @@
 
     <div id="app">
 
-      <h1>COUNTER.</h1>
+      <h1>{{ displayTitle }}</h1>
       <!-- prefixing attribute with : is short ver of using v-bind: -->
       <p :data-increment-by="incrementAmount">Count: {{ count }}</p>
       <!-- v-on:theEventYouWantToCall such as v-on:click which can be shortened to @click-->
@@ -21,6 +21,7 @@
       <!-- can pass arguments to the function in () like incrementCount(10, $event)-->
       <button v-on:click="incrementCount">INCREMENT COUNT.</button>
       <p>Increment Amount: {{ incrementAmount }}</p>
+      <p>Optimized Increment Amount: {{ optimizedIncrementAmount }}</p>
       <div>
         <label for="incrementAmount">Increment by:</label>
         <!-- v-bind will bind the value to a dynamic property -->
@@ -79,6 +80,7 @@
         data() {
           return {
             count: 10,
+            counterTitle: 'Counter Standard',
             incrementAmount: 8,
             message: 'Hey, a message!!',
             listOfNumbers: [1, 2, 3, 4, 5],
@@ -89,6 +91,19 @@
             ],
           }
         },
+        // computed is optimized calculations on reactive data
+        computed: {
+          displayTitle() {
+            if (this.count > 20) {
+              return 'Count Over 20'
+            } else {
+              return 'Counter Standard'
+            }
+          },
+          optimizedIncrementAmount() {
+            return this.displayTitle.length * this.incrementAmount
+          }
+        },
         // methods are like functions from js for your app to call on
         methods: {
           incrementCount(newAmount, event) {
@@ -96,7 +111,7 @@
             // think of it as meaning in "this" app
             // a more explicit version might be like this.$data.count
             // simple incr-by-one version: this.count++
-            this.count += this.incrementAmount
+            this.count += this.optimizedIncrementAmount
           },
           // could use newAmount arg passed in up at button
           
@@ -104,6 +119,14 @@
           //   console.log('event:', event.target.value)
           //   this.incrementAmount = event.target.value
           // }   DON"T NEED THIS ONCE WE USE v-model ON INPUT
+        },
+        watch: {
+          count(newValue) {
+            console.log('newValue:', newValue)
+            if (newValue > 20) {
+              this.counterTitle += ' over 20'
+            }
+          }
         }
       })  
       app.mount('#app')  // uses CSS selector to tell where to mount app

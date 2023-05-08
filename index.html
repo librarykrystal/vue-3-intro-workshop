@@ -11,11 +11,12 @@
     <br/>
 
     <div id="app">
-      <h3>ADD a Character!</h3>
-      <pre>{{ newCharacter }}</pre>
-      <label for="character-name">Name</label>
-      <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
-
+      <div>
+        <h3>ADD a Character!</h3>
+        <pre>{{ newCharacter }}</pre>
+        <label for="character-name">Name</label>
+        <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
+      </div>
       <br/>
 
       <p v-if="characterList.length === 0">There are no characters!</p>

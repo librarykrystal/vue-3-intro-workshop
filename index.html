@@ -14,7 +14,9 @@
       <div>
         <h3>Character Type Stats:</h3>
         <ul>
-          <li>{{ typeStatistics }}</li>
+          <li v-for="(stat, type) in typeStatistics">
+            {{ type }}: {{ stat }}
+          </li>
         </ul>
 
         <br/>

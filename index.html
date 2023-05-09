@@ -14,9 +14,7 @@
       <div>
         <h3>Character Type Stats:</h3>
         <ul>
-          <li>Ballers: </li>
-          <li>Coaches: </li>
-          <li>Owners: </li>
+          <li>{{ typeStatistics }}</li>
         </ul>
 
         <br/>
@@ -93,11 +91,30 @@
             newCharacter: {
               name: '',
               desc: '',
-              baller: '',
+              type: '',
             }
         }),
         computed: {
-
+          // ballerList() {
+          //   return this.characterList.filter(character =>
+          //     character.type == 'baller')
+          // }
+          typeStatistics() {
+            const types = ['baller', 'coach', 'owner']
+            const statistics = {
+              baller: 0,
+              coach: 0,
+              owner: 0
+            }
+            this.characterList.forEach(character => {
+              types.forEach(type => {
+                if (character.type.indexOf(type) > -1) {
+                  statistics[type] += 1
+                }
+              })
+            })
+            return statistics
+          }
         },
         methods: {
           addNewCharacter() {
